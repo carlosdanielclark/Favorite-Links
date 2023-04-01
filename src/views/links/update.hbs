@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col s12 center_conten">
+    <div class="card  cyan darken-4">
+      <div class="card-content white-text">
+        <form action="/links/update/{{links.id}}" method="post">
+
+          <div class="input-field section">
+            <input type="text" name="title" id="title" class="validate white-text" value="{{links.title}}" autofocus>
+            <label for="title">Title</label>
+          </div>
+
+          <div class="input-field section">
+            <input type="url" name="url" id="url" class="validate white-text" value="{{links.url}}">
+            <label for="url">URL</label>
+          </div>
+
+          <div class="input-field section">
+            <i class="material-icons prefix">mode_edit</i>
+            <textarea type="text"  name="description" id="description" class="materialize-textarea white-text" rows="2">{{links.description}}</textarea>
+            <label for="description">Description</label>
+          </div>
+
+          <div class="section">
+            <button class="btn blue-grey lighten-2 col s12">Edit link
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,74 @@
+  //IMPORTAR MODULOS
+  const express = require('express'); 
+  //const cors =  require('cors');
+  const { JSON } = require('mysql/lib/protocol/constants/types');
+  const morgan = require('morgan');
+  const { engine } = require('express-handlebars');
+  const path = require('path');
+  const flash = require('connect-flash');
+  const session = require('express-session');
+  const MySQLStore = require('express-mysql-session')(session);
+  const { db_key } = require('./mysql/mysql_key');
+  const passport = require('passport');
+  const LocalStrategy = require('passport-local').Strategy;
+
+ /***********************************************************/
+  //INITIALIZATION
+  const app = express(); //Retorna una app de express
+  require('./lib/passport');
+
+  //SETTINGS
+  const port = process.env.PORT || 5000; //Numero del puerto
+  app.set('views', path.join(__dirname, 'views')); //Ruta de la carpeta 'views'
+  app.engine('.hbs', engine({      
+    defaultLayouts: 'main',
+    layoutsDir: path.join(app.get('views'), 'layouts'),
+    partialsDir: path.join(app.get('views'), 'partials'),
+    extname: '.hbs',
+    helpers: require('./lib/handlebar.js')
+  }));
+  // ENABLE HANDLEBAR 
+  app.set('view engine', '.hbs');
+
+  /************************************************************/
+  //ACCES PUBLIC FILES
+  app.use(express.static(path.join(__dirname, 'public')));
+
+  /************************************************************/
+  //MIDDLEWARES
+  app.use(express.urlencoded({extended: true}))//accepted data envoy for use to form
+  app.use(express.json({type: '*/*'}))// Combierte la request en formato .JSON
+  //app.use(cors());
+  app.use(morgan('dev'));
+  
+  app.use(session({
+    secret: 'key_seccion',
+    resave: false,
+    saveUninitialized: false,
+    store: new MySQLStore(db_key)
+  }));
+  
+  app.use(flash());
+  app.use(passport.initialize());
+  app.use(passport.session());
+  /************************************************************/
+  //GLOBAL VARIABLES
+  app.use((request, response, next)=>{
+    app.locals.success = request.flash('success');
+    app.locals.menssage = request.flash('menssage');
+    app.locals.user = request.user;
+    next();
+  })
+
+  /************************************************************/
+  //IMPORT ROUTERS assign url(Rutas)
+  app.use(require('./routers/router'));
+  app.use(require('./routers/authentication'));
+  app.use('/links',require('./routers/links'));
+  /************************************************************/
+  //STARTING SERVER
+  app.listen(port, () => {
+    console.log('server listen... port:', port);
+  });
+ 
+  
