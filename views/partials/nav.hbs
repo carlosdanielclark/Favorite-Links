@@ -1,0 +1,25 @@
+<nav>
+    <div class="nav-wrapper">
+      <a href="/" class="brand-logo left">Favorite links</a>
+      <ul id="nav-mobile" class="right ">
+         <a class='right' href='/'>
+          <i class="material-icons">home</i></a>
+        </a>
+      {{#if user}}
+        <li class="right"><a href="http://localhost:5000/logout">Logout</a></li>
+        <li class="right"><a href="http://localhost:5000/profile">Profile</a></li>
+        <a class='dropdown-trigger right' href='#' data-target='dropdown1'>
+          <i class="material-icons">menu</i></a>
+        </a>
+        <ul id="dropdown1" class="dropdown-content">
+          <li><a href="http://localhost:5000/links/add">Save Links</a></li>
+          <li><a href="http://localhost:5000/links">See Links</a></li>
+        </ul>
+        {{else}}
+          <li class="right"><a href="http://localhost:5000/singin">SingIn</a></li>
+          <li class="right"><a href="http://localhost:5000/singup">SingUp</a></li>
+      {{/if}}
+      </ul>
+    </div>
+  </nav>
+        

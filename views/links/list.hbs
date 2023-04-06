@@ -1,0 +1,65 @@
+<div class="row"> <!--Main-->
+  {{#if del}}
+    {{message}}
+  {{/if}}
+  {{#if saved}}
+    {{message}}
+  {{/if}}
+  {{#if edit}}
+    {{message}}
+  {{/if}}
+  <div class="fullHeightRight"> <!--Container-->
+    <div class="text-size-20 center"> <!--Work area-->
+      {{#each links}}
+          <div class="col s12 m6 l4">
+            <div class="card teal darken-1">
+
+              <div class="card-content white-text">
+                <span class="card-title"> {{ title }} </span>
+              </div>
+
+              <div class="card-action truncate">
+                <a href={{ url }} target="_blank" > {{ url }} </a>
+              </div>
+
+              <div class="card-content white-text">
+                <p> {{ description }} </p>
+              </div>
+
+              <div class="card-action white-text">
+                <div id="date"> 
+                  {{ timeago create_at }} 
+                </div>
+              </div>
+
+              <div class="section lighten-4">
+                <a href="/links/update/{{id}}"  class="btn blue-grey lighten-2 col s4" >Edit</a>
+                <a href="/links/delete/{{id}}" class="btn red lighten-3 col s8">Delete</a>
+              </div>
+            </div>
+          </div>
+      {{else}}
+        <div class="row center text-size-24">
+          <div class="card col offset-s4 s4">
+            <div class="card teal darken-1">
+              <div class="section card-content white-text"> 
+                <p>There are not links saved yet.</p>
+                <div class="section card-action">
+                  <a href="http://localhost:5000/links/add">
+                    Create one!.
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-150">
+          <div class="center">
+            <img src="/img/OIP.jpeg" alt="">
+          </div>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</div>

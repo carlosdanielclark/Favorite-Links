@@ -1,0 +1,53 @@
+<div class="row"><!--Main-->
+  <div class="fullHeightRight grey lighten-5">
+    
+    <!--Basic Form-->
+    <div class="container">
+      
+      <div class="col s12 offset-m3 m6 mt-150">
+        {{#if edit}}
+          {{message}}
+        {{/if}}
+        <h2 class="center"> Edit link </h2>
+        <a href="/" class="center">Home
+          <i class="tiny material-icons">home</i>
+        </a> 
+        <a class="black-text center">/</a>
+        <a class="black-text center">Edit
+          <i class="tiny material-icons">edit</i>
+        </a>  
+      </div>
+
+      <div class="card col s12 offset-m3 m6 white ">
+        <form action="/links/update/{{links.id}}" method="post">
+            <!--title-->
+          <div class="input-field col s12">
+            <i class="material-icons prefix">title</i>
+            <input type="text" name="title" id="title" class="validate black-text" value="{{links.title}}" autofocus>
+            <label for="title">Title</label>
+          </div>
+            <!--url-->
+          <div class="input-field col s12">
+            <i class="material-icons prefix">link</i>
+            <input type="url" name="url" id="url" class="validate black-text" value="{{links.url}}">
+            <label for="url">URL</label>
+          </div>
+            <!--description-->      
+          <div class="input-field col s12">
+            <i class="material-icons prefix">mode_edit</i>
+            <textarea type="text"  name="description" id="description" class="materialize-textarea black-text" rows="2">{{links.description}}</textarea>
+            <label for="description">Description</label>
+          </div>
+          <!--Buttons-->
+          <div class="row center">
+            <button class="btn waves-effect waves-light">Edit
+              <i class="material-icons right">edit</i>
+            </button>
+          </div>
+
+        </form>
+        <p class="center">© Showing skills </p>
+      </div>
+    </div>
+  </div>
+</div><!--End Main-->
