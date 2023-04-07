@@ -19,7 +19,11 @@
 
   //SETTINGS
   const port = process.env.PORT || 5000; //Numero del puerto
-  app.set('views', path.join(__dirname, 'views')); //Ruta de la carpeta 'views'
+
+  const dir_apk = '/home/carlosdaniel/Documentos/03  PROJECTS DEVELOP/My APKs/apk-save-link/';
+  app.set('views', path.join(dir_apk, 'views')); // Enlazar ruta con la carpeta 'views'
+  app.use(express.static(path.join(dir_apk, 'public'))); //Enlazar ruta con la carpeta 'public'
+
   app.engine('.hbs', engine({      
     defaultLayouts: 'main',
     layoutsDir: path.join(app.get('views'), 'layouts'),
@@ -31,16 +35,12 @@
   app.set('view engine', '.hbs');
 
   /************************************************************/
-  //ACCES PUBLIC FILES
-  app.use(express.static(path.join(__dirname, 'public')));
-
-  /************************************************************/
   //MIDDLEWARES
   app.use(express.urlencoded({extended: true}))//accepted data envoy for use to form
   app.use(express.json({type: '*/*'}))// Combierte la request en formato .JSON
   //app.use(cors());
   app.use(morgan('dev'));
-  
+
   app.use(session({
     secret: 'key_seccion',
     resave: false,
@@ -55,7 +55,7 @@
   //GLOBAL VARIABLES
   app.use((request, response, next)=>{
     app.locals.success = request.flash('success');
-    app.locals.menssage = request.flash('menssage');
+    app.locals.message = request.flash('message');
     app.locals.user = request.user;
     next();
   })
